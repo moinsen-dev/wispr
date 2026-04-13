@@ -67,6 +67,7 @@ enum PreviewMocks {
     /// setupHotkeyCallbacks() just sets closures (no Carbon registration).
     /// startLanguageSync() starts a benign observation Task.
     static func makeTextCorrectionService() -> TextCorrectionService { TextCorrectionService() }
+    static func makeTranslationService() -> TranslationService { TranslationService() }
 
     static func makeStateManager(
         settingsStore: SettingsStore? = nil,
@@ -78,6 +79,7 @@ enum PreviewMocks {
             whisperService: whisperService ?? makeWhisperService(),
             textInsertionService: makeTextInsertionService(),
             textCorrectionService: makeTextCorrectionService(),
+            translationService: makeTranslationService(),
             hotkeyMonitor: makeHotkeyMonitor(),
             permissionManager: makePermissionManager(),
             settingsStore: store

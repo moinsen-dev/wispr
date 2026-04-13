@@ -38,6 +38,7 @@ func createTestStateManager(
         whisperService: whisperService,
         textInsertionService: textInsertionService,
         textCorrectionService: TextCorrectionService(),
+        translationService: TranslationService(),
         hotkeyMonitor: hotkeyMonitor,
         permissionManager: permissionManager,
         settingsStore: settingsStore
@@ -66,6 +67,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: SettingsStore(defaults: UserDefaults(suiteName: "test.wispr.initialstate.\(UUID().uuidString)")!)
@@ -87,6 +89,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: pm,
             settingsStore: settingsStore
@@ -431,6 +434,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -554,6 +558,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -574,6 +579,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -594,6 +600,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -617,6 +624,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -642,6 +650,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -681,6 +690,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: pm,
             settingsStore: settingsStore
@@ -786,6 +796,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: mockTextService,
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -848,6 +859,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: mockTextService,
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -972,6 +984,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -994,6 +1007,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -1017,6 +1031,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: mockTextService,
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -1044,6 +1059,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -1066,6 +1082,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -1089,6 +1106,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: mockTextService,
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore
@@ -1113,6 +1131,7 @@ struct StateManagerTests {
             whisperService: WhisperService(),
             textInsertionService: mockTextService,
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore

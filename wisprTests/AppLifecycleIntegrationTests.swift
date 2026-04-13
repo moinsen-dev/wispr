@@ -48,6 +48,7 @@ private func createIntegrationServices(
         whisperService: whisperService,
         textInsertionService: textInsertionService,
         textCorrectionService: TextCorrectionService(),
+        translationService: TranslationService(),
         hotkeyMonitor: hotkeyMonitor,
         permissionManager: permissionManager,
         settingsStore: settingsStore

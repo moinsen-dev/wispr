@@ -281,6 +281,7 @@ struct StateManagerLanguageSyncTests {
             whisperService: WhisperService(),
             textInsertionService: TextInsertionService(),
             textCorrectionService: TextCorrectionService(),
+            translationService: TranslationService(),
             hotkeyMonitor: HotkeyMonitor(),
             permissionManager: PermissionManager(),
             settingsStore: settingsStore

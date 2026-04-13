@@ -118,6 +118,23 @@ final class SettingsStore {
         }
     }
 
+    // MARK: - Translation Settings
+
+    /// When true, automatically translates transcribed text into translationTargetLanguage.
+    var autoTranslateEnabled: Bool {
+        didSet { guard !isLoading else { return }; defaults.set(autoTranslateEnabled, forKey: Keys.autoTranslateEnabled) }
+    }
+
+    /// The target language for automatic post-transcription translation.
+    var translationTargetLanguage: TranslationLanguage {
+        didSet {
+            guard !isLoading else { return }
+            if let encoded = try? JSONEncoder().encode(translationTargetLanguage) {
+                defaults.set(encoded, forKey: Keys.translationTargetLanguage)
+            }
+        }
+    }
+
     // MARK: - UserDefaults Keys
     private enum Keys {
         static let hotkeyKeyCode = "hotkeyKeyCode"
@@ -137,6 +154,8 @@ final class SettingsStore {
         static let autoSendEnterEnabled = "autoSendEnterEnabled"
         static let aiTextCorrectionEnabled = "aiTextCorrectionEnabled"
         static let aiTextCorrectionStyle = "aiTextCorrectionStyle"
+        static let autoTranslateEnabled = "autoTranslateEnabled"
+        static let translationTargetLanguage = "translationTargetLanguage"
     }
     
     // MARK: - Default Values
@@ -161,6 +180,8 @@ final class SettingsStore {
         static let autoSendEnterEnabled: Bool = false
         static let aiTextCorrectionEnabled: Bool = false
         static let aiTextCorrectionStyle: CorrectionStyle = .minimal
+        static let autoTranslateEnabled: Bool = false
+        static let translationTargetLanguage: TranslationLanguage = .english
     }
 
     // MARK: - Dependencies
@@ -189,6 +210,8 @@ final class SettingsStore {
         self.autoSendEnterEnabled = Defaults.autoSendEnterEnabled
         self.aiTextCorrectionEnabled = Defaults.aiTextCorrectionEnabled
         self.aiTextCorrectionStyle = Defaults.aiTextCorrectionStyle
+        self.autoTranslateEnabled = Defaults.autoTranslateEnabled
+        self.translationTargetLanguage = Defaults.translationTargetLanguage
 
         // Load persisted values
         load()
@@ -215,6 +238,8 @@ final class SettingsStore {
         autoSendEnterEnabled = Defaults.autoSendEnterEnabled
         aiTextCorrectionEnabled = Defaults.aiTextCorrectionEnabled
         aiTextCorrectionStyle = Defaults.aiTextCorrectionStyle
+        autoTranslateEnabled = Defaults.autoTranslateEnabled
+        translationTargetLanguage = Defaults.translationTargetLanguage
     }
     
     // MARK: - Persistence
@@ -246,6 +271,12 @@ final class SettingsStore {
 
         if let encoded = try? JSONEncoder().encode(aiTextCorrectionStyle) {
             defaults.set(encoded, forKey: Keys.aiTextCorrectionStyle)
+        }
+
+        defaults.set(autoTranslateEnabled, forKey: Keys.autoTranslateEnabled)
+
+        if let encoded = try? JSONEncoder().encode(translationTargetLanguage) {
+            defaults.set(encoded, forKey: Keys.translationTargetLanguage)
         }
     }
 
@@ -330,6 +361,16 @@ final class SettingsStore {
         if let data = defaults.data(forKey: Keys.aiTextCorrectionStyle),
            let decoded = try? JSONDecoder().decode(CorrectionStyle.self, from: data) {
             self.aiTextCorrectionStyle = decoded
+        }
+
+        // Load translation settings
+        if defaults.object(forKey: Keys.autoTranslateEnabled) != nil {
+            self.autoTranslateEnabled = defaults.bool(forKey: Keys.autoTranslateEnabled)
+        }
+
+        if let data = defaults.data(forKey: Keys.translationTargetLanguage),
+           let decoded = try? JSONDecoder().decode(TranslationLanguage.self, from: data) {
+            self.translationTargetLanguage = decoded
         }
     }
     

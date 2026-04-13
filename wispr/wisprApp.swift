@@ -85,6 +85,9 @@ final class WisprAppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate 
     /// On-device AI text correction using FoundationModels.
     let textCorrectionService = TextCorrectionService()
 
+    /// On-device AI text translation using FoundationModels.
+    let translationService = TranslationService()
+
     /// Shared UI theme engine for appearance and accessibility adaptations.
     let themeEngine = UIThemeEngine.shared
 
@@ -143,14 +146,16 @@ final class WisprAppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate 
             whisperService: whisperService,
             textInsertionService: textInsertionService,
             textCorrectionService: textCorrectionService,
+            translationService: translationService,
             hotkeyMonitor: hotkeyMonitor,
             permissionManager: permissionManager,
             settingsStore: settingsStore
         )
         stateManager = sm
 
-        // Check AI text correction availability on launch
+        // Check AI text correction and translation availability on launch
         textCorrectionService.checkAvailability()
+        translationService.checkAvailability()
 
         Log.app.debug("bootstrap — StateManager initialized")
 
@@ -164,6 +169,7 @@ final class WisprAppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate 
             whisperService: whisperService,
             permissionManager: permissionManager,
             textCorrectionService: textCorrectionService,
+            translationService: translationService,
             updateChecker: updateChecker
         )
 

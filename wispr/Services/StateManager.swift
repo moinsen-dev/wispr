@@ -49,6 +49,7 @@ final class StateManager {
     private let whisperService: any TranscriptionEngine
     private let textInsertionService: any TextInserting
     private let textCorrectionService: any TextCorrecting
+    private let translationService: any TextTranslating
     private let hotkeyMonitor: HotkeyMonitor
     private let permissionManager: PermissionManager
     private let settingsStore: SettingsStore
@@ -72,6 +73,7 @@ final class StateManager {
     ///   - whisperService: The on-device transcription engine.
     ///   - textInsertionService: The text insertion service.
     ///   - textCorrectionService: The AI text correction service.
+    ///   - translationService: The AI text translation service.
     ///   - hotkeyMonitor: The global hotkey monitor.
     ///   - permissionManager: The permission manager.
     ///   - settingsStore: The persistent settings store.
@@ -80,6 +82,7 @@ final class StateManager {
         whisperService: any TranscriptionEngine,
         textInsertionService: any TextInserting,
         textCorrectionService: any TextCorrecting,
+        translationService: any TextTranslating,
         hotkeyMonitor: HotkeyMonitor,
         permissionManager: PermissionManager,
         settingsStore: SettingsStore
@@ -88,6 +91,7 @@ final class StateManager {
         self.whisperService = whisperService
         self.textInsertionService = textInsertionService
         self.textCorrectionService = textCorrectionService
+        self.translationService = translationService
         self.hotkeyMonitor = hotkeyMonitor
         self.permissionManager = permissionManager
         self.settingsStore = settingsStore
@@ -263,6 +267,23 @@ final class StateManager {
         return corrected
     }
 
+    // MARK: - Translation
+
+    /// Applies AI text translation if enabled and available.
+    /// Returns the translated text, or the original text if disabled, unavailable, or on failure.
+    private func applyTranslation(to text: String) async -> String {
+        guard settingsStore.autoTranslateEnabled,
+              translationService.availability == .available,
+              !text.isEmpty else { return text }
+        processingStatusText = "Translating…"
+        let translated = await translationService.translate(
+            text,
+            to: settingsStore.translationTargetLanguage
+        )
+        processingStatusText = nil
+        return translated
+    }
+
     // MARK: - Auto-Suffix & Auto-Send Helpers
 
     /// Applies optional suffix to transcribed text based on settings.
@@ -312,10 +333,13 @@ final class StateManager {
             return
         }
 
-        // AI text correction step (after filler removal, before suffix)
+        // AI text correction step (after filler removal, before translation)
         let corrected = await applyAITextCorrection(to: cleaned)
 
-        let finalText = applyAutoSuffix(to: corrected)
+        // Translation step (after correction, before suffix)
+        let translated = await applyTranslation(to: corrected)
+
+        let finalText = applyAutoSuffix(to: translated)
 
         do {
             try await textInsertionService.insertText(finalText)
